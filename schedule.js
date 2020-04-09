@@ -38,14 +38,15 @@ const schedule = initSchedule(currentMinute, currentHour, currentDay);
 
 if (schedule.toWork) {
   const url = createQueryUrl(home, skm, process.env.API_KEY);
+  console.log(url);
   fetchData(url)
     .then((results) => saveData(results))
     .catch((err) => handleDBError(err));
 }
 if (schedule.fromWork) {
   const url = createQueryUrl(skm, home, process.env.API_KEY);
+  console.log(url);
   fetchData(url)
     .then((results) => saveData(results))
     .catch((err) => handleDBError(err));
 }
-mongoose.disconnect();
