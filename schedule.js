@@ -7,7 +7,7 @@ const saveData = require('./src/saveData');
 
 //  DEFINE ORIGIN AND DESTINATION ADDRESSES
 const home = [
-  { desc: 'Home', placeId: 'ChIJYSJPB9ej_UYRBt_XcY_HwzQ' },
+  { desc: 'Home', placeId: process.env.HOME_LOCATION_ID },
 ];
 const skm = [
   { desc: 'Gdynia Wzgórze Św.Maksym.', placeId: 'ChIJLz-bkzKn_UYR-JiHQ1ufQms' },
