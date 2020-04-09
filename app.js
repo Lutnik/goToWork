@@ -6,6 +6,8 @@ const createQueryUrl = require('./src/createQueryUrl');
 const fetchData = require('./src/fetchData');
 const saveData = require('./src/saveData');
 
+const Gmaps = require('./models/gmaps');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -25,8 +27,9 @@ mongoose.connect(process.env.DB_URL, {
 
 mongoose.connection.on('error', (err) => handleDBError(err));
 
-app.get('/', (req, res) => {
-  res.render('index.ejs');
+app.get('/', async (req, res) => {
+  const data = await Gmaps.find().sort({ _id: -1 }).limit(5);
+  res.render('index.ejs', { data });
 });
 
 const home = [

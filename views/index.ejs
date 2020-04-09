@@ -6,5 +6,11 @@
   </head>
   <body>
     Check data from Google Maps:
+    <% for (let item of data) { %>
+      <section>
+        <h4> <%= item.origin %> to <%= item.destination %> </h4>
+        <span> <%= item.durationTraffic %> </span>
+      </section>
+    <% } %>
   </body>
 </html>
