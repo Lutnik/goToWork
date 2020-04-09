@@ -7,7 +7,7 @@ const saveData = require('./src/saveData');
 
 //  DEFINE ORIGIN AND DESTINATION ADDRESSES
 const home = [
-  { desc: 'Home', placeId: process.env.HOME },
+  { desc: 'Home', placeId: 'ChIJYSJPB9ej_UYRBt_XcY_HwzQ' },
 ];
 const skm = [
   { desc: 'Gdynia Wzgórze Św.Maksym.', placeId: 'ChIJLz-bkzKn_UYR-JiHQ1ufQms' },
@@ -38,14 +38,12 @@ const schedule = initSchedule(currentMinute, currentHour, currentDay);
 
 if (schedule.toWork) {
   const url = createQueryUrl(home, skm, process.env.API_KEY);
-  console.log(url);
   fetchData(url)
     .then((results) => saveData(results))
     .catch((err) => handleDBError(err));
 }
 if (schedule.fromWork) {
   const url = createQueryUrl(skm, home, process.env.API_KEY);
-  console.log(url);
   fetchData(url)
     .then((results) => saveData(results))
     .catch((err) => handleDBError(err));

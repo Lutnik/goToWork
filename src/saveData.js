@@ -3,7 +3,9 @@ const encode = require('./encodePlace.js');
 
 module.exports = function saveData(results) {
   const arr = [];
-  console.log(results);
+  if (results.error_message) {
+    return Promise.reject(new Error(results.error_message));
+  }
   if (results.destination_addresses.length === 1) {
     results.origin_addresses.forEach((item, i) => {
       arr.push({
