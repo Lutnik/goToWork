@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const saveData = require('../saveData');
 
-describe('Creates mongodb documents and saves them', () => {
+describe.skip('Creates mongodb documents and saves them', () => {
   const [badData, validData1, validData2] = prepareData(); // eslint-disable-line no-use-before-define
   beforeAll(async () => {
     await mongoose.connect(global.__MONGO_URI__, { // eslint-disable-line no-underscore-dangle

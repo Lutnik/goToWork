@@ -1,10 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const initSchedule = require('./src/initSchedule');
-const createQueryUrl = require('./src/createQueryUrl');
-const fetchData = require('./src/fetchData');
-const saveData = require('./src/saveData');
+// const initSchedule = require('./src/initSchedule');
+// const createQueryUrl = require('./src/createQueryUrl');
+// const fetchData = require('./src/fetchData');
+// const saveData = require('./src/saveData');
 
 const Gmaps = require('./models/gmaps');
 
@@ -31,35 +31,5 @@ app.get('/', async (req, res) => {
   const data = await Gmaps.find().sort({ _id: -1 }).limit(5);
   res.render('index.ejs', { data });
 });
-
-const home = [
-  { desc: 'Home', placeId: process.env.HOME },
-];
-const skm = [
-  { desc: 'Gdynia Wzgórze Św.Maksym.', placeId: 'ChIJLz-bkzKn_UYR-JiHQ1ufQms' },
-  { desc: 'Gdynia Orłowo SKM', placeId: 'ChIJLScC55mg_UYRKaK5RYAA6Aw' },
-  { desc: 'Gdańsk Przymorze - Uniwer', placeId: 'ChIJ9YGWHSl1_UYRghqwL1MVXCk' },
-  { desc: 'Gdańsk Główny', placeId: 'ChIJiUaiVnZz_UYR9EJIyCysYtg' },
-];
-
-const check = initSchedule((new Date()).getHours());
-
-setInterval(() => {
-  const currentHour = (new Date()).getHours();
-  const currentDay = (new Date()).getDay();
-  const schedule = check(currentHour, currentDay);
-  if (schedule.toWork) {
-    const url = createQueryUrl(home, skm, process.env.API_KEY);
-    fetchData(url)
-      .then((results) => saveData(results))
-      .catch((err) => handleDBError(err));
-  }
-  if (schedule.fromWork) {
-    const url = createQueryUrl(skm, home, process.env.API_KEY);
-    fetchData(url)
-      .then((results) => saveData(results))
-      .catch((err) => handleDBError(err));
-  }
-}, 900000);
 
 app.listen(process.env.PORT, () => console.log('App listening on port 8080'));
