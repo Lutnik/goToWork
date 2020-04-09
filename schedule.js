@@ -36,15 +36,23 @@ const currentDay = (new Date()).getDay();
 const currentMinute = (new Date()).getMinutes();
 const schedule = initSchedule(currentMinute, currentHour, currentDay);
 
-if (schedule.toWork) {
-  const url = createQueryUrl(home, skm, process.env.API_KEY);
-  fetchData(url)
-    .then((results) => saveData(results))
-    .catch((err) => handleDBError(err));
+async function main() {
+  try {
+    if (schedule.toWork) {
+      const url = createQueryUrl(home, skm, process.env.API_KEY);
+      const results1 = await fetchData(url);
+      await saveData(results1);
+    }
+    if (schedule.fromWork) {
+      const url = createQueryUrl(skm, home, process.env.API_KEY);
+      const results2 = await fetchData(url);
+      await saveData(results2);
+    }
+  } catch (err) {
+    handleDBError(err);
+  } finally {
+    mongoose.disconnect();
+  }
 }
-if (schedule.fromWork) {
-  const url = createQueryUrl(skm, home, process.env.API_KEY);
-  fetchData(url)
-    .then((results) => saveData(results))
-    .catch((err) => handleDBError(err));
-}
+
+main();
