@@ -11,8 +11,8 @@ module.exports = function initSchedule(initHour) {
         counter = 0;
       }
       counter += 1;
-      if (currentHour >= 6 && currentHour < 10) { //  16 + 4
-        return { toWork: true, fromWork: counter === 1 };
+      if (currentHour >= 6 && currentHour < 10) { //  16 + 0
+        return { toWork: true, fromWork: false };
       }
       if (currentHour >= 10 && currentHour < 15) { // 5 + 5
         return { toWork: counter === 1, fromWork: counter === 1 };
@@ -25,4 +25,4 @@ module.exports = function initSchedule(initHour) {
     return { toWork: false, fromWork: false };
     //    total API calls: 55/day; <1200/month;
   }; //   0.01 USD each --> 12 USD/month
-}
+};

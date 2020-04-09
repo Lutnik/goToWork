@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 const home = [
-  { desc: 'Home', placeId: 'ChIJYSJPB9ej_UYRBt_XcY_HwzQ' },
+  { desc: 'Home', placeId: process.env.HOME },
 ];
 const skm = [
   { desc: 'Gdynia Wzgórze Św.Maksym.', placeId: 'ChIJLz-bkzKn_UYR-JiHQ1ufQms' },

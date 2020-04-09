@@ -22,6 +22,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
+    "start": "node app.js"
     "test": "jest"
   },
   "author": "Lutnik",
